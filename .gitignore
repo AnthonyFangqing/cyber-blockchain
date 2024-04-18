@@ -1,5 +1,5 @@
 # Anthony's one
-.vscode
+.vscode/*
 NOTES
 
 # Created by https://www.toptal.com/developers/gitignore/api/python,flask
