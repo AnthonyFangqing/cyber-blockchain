@@ -28,6 +28,12 @@ class Blockchain:
         self.current_transactions = []
         self.players = set()
 
+        
+        first_block = self.create_block(0, [], 0, 0)
+        while not self.check_proof(first_block):
+            first_block.proof += 1
+        self.add_block(first_block)
+
     def create_block(self, index, transactions, proof, previous_hash):
         return Block(index, copy.copy(transactions), proof, previous_hash)
 
@@ -65,10 +71,20 @@ class Blockchain:
 
     def mine(self):
         # Give yourself a reward at the beginning of the transactions
+        self.add_transaction("GOD", "Anthony", self.mining_reward)
+        
+        last_block = self.current_block()
+        new_block = self.create_block(last_block.index + 1, self.current_transactions, 0, self.hash_block(last_block))
+        
         # Find the right value for proof
+        while not self.check_proof(new_block):
+            new_block.proof += 1
+        
         # Add the block to the chain
+        self.add_block(new_block)
+        
         # Clear your current transactions
-        pass
+        self.current_transactions = []
 
     def validate_chain(self, chain):
         # Check that the chain is valid
