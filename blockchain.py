@@ -61,7 +61,7 @@ class Blockchain:
 
     def check_proof(self, block):
         # Check that the hash of the block ends in difficulty_number many zeros
-        return True
+        return hash_block(block)[:self.difficulty_number] == '0' * self.difficulty_number
 
     def mine(self):
         # Give yourself a reward at the beginning of the transactions
