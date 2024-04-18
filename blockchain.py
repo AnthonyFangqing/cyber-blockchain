@@ -29,10 +29,10 @@ class Blockchain:
         self.players = set()
 
         
-        first_block = self.create_block(0, [], 0, 0)
-        while not self.check_proof(first_block):
-            first_block.proof += 1
-        self.add_block(first_block)
+        genesis_block = self.create_block(0, [Transaction("GOD", self.address, 100)], 0, 0)
+        while not self.check_proof(genesis_block):
+            genesis_block.proof += 1
+        self.add_block(genesis_block)
 
     def create_block(self, index, transactions, proof, previous_hash):
         return Block(index, copy.copy(transactions), proof, previous_hash)
@@ -67,11 +67,11 @@ class Blockchain:
 
     def check_proof(self, block):
         # Check that the hash of the block ends in difficulty_number many zeros
-        return hash_block(block)[:self.difficulty_number] == '0' * self.difficulty_number
+        return self.hash_block(block)[:self.difficulty_number] == '0' * self.difficulty_number
 
     def mine(self):
         # Give yourself a reward at the beginning of the transactions
-        self.add_transaction("GOD", "Anthony", self.mining_reward)
+        self.add_transaction("GOD", self.address, self.mining_reward)
         
         last_block = self.current_block()
         new_block = self.create_block(last_block.index + 1, self.current_transactions, 0, self.hash_block(last_block))
