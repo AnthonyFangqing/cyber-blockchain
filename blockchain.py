@@ -1,6 +1,7 @@
 import hashlib
 import time
 from dataclasses import dataclass
+import copy
 
 @dataclass
 class Transaction:
@@ -26,7 +27,7 @@ class Blockchain:
         self.current_transactions = []
 
     def create_block(self, index, transactions, proof, previous_hash):
-        return Block(index, transactions, proof, previous_hash)
+        return Block(index, copy.copy(transactions), proof, previous_hash)
 
     def create_transaction(self, sender, recipient, amount):
         return Transaction(sender, recipient, amount)
@@ -50,7 +51,7 @@ class Blockchain:
         if self.check_proof(block):
             self.chain.append(block)
 
-    def hash(self, block):
+    def hash_block(self, block):
         return hashlib.sha256(str(block).encode()).hexdigest()
 
     def check_proof(self, block):
