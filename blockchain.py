@@ -26,6 +26,7 @@ class Blockchain:
         self.mining_reward = mining_reward
         self.chain = []
         self.current_transactions = []
+        self.players = set()
 
     def create_block(self, index, transactions, proof, previous_hash):
         return Block(index, copy.copy(transactions), proof, previous_hash)
@@ -51,6 +52,9 @@ class Blockchain:
     def add_block(self, block):
         if self.check_proof(block):
             self.chain.append(block)
+
+    def add_player(self, address):
+        self.players.add(address)
 
     def hash_block(self, block):
         return hashlib.sha256(str(block).encode()).hexdigest()
