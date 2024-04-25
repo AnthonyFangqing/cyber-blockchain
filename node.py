@@ -101,7 +101,7 @@ def broadcast():
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run a node in a blockchain network.")
     parser.add_argument("-i", "--identifier", default="")
-    parser.add_argument("port", default="5000")
+    parser.add_argument("-p", "--port", default="5000")
 
     args = parser.parse_args()
     identifier = args.identifier
