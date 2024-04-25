@@ -4,7 +4,7 @@ import dataclasses
 
 app = Flask(__name__)
 # Give yourself an address
-address = ""
+address = "Danniell"
 difficulty_number = 2
 mining_reward = 10
 local_blockchain = Blockchain(address, difficulty_number, mining_reward)
