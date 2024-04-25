@@ -91,6 +91,9 @@ class Blockchain:
         # The chain is an array of blocks
         # You should check that the hashes chain together
         # The proofs of work should be valid
+        for i in range(len(chain) - 1):
+            if chain[i + 1].previous_hash != self.hash_block(chain[i]):
+                return False
         return True
 
     def receive_chain(self, chain_raw_json):
